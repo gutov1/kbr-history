@@ -235,7 +235,7 @@
       font-weight: 600;
       line-height: 1.15;
       max-width: 840px;
-      margin: 12px 0 16px;
+      margin: 12px 0 0;
       letter-spacing: -0.01em;
       position: relative;
       z-index: 2;
@@ -313,51 +313,16 @@
     }
 
     /* ==========================================================================
-       INTRO & STATS SECTION
+       STATS SECTION
        ========================================================================== */
     .intro {
-      display: grid;
-      grid-template-columns: 1.35fr 0.85fr;
-      gap: 20px;
-      align-items: stretch;
-      margin-bottom: 36px;
-    }
-
-    .intro-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: clamp(20px, 3vw, 30px);
-      box-shadow: var(--card-shadow);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .intro-card h2 {
-      font-family: var(--font-heading);
-      font-size: clamp(20px, 2.5vw, 25px);
-      margin-bottom: 12px;
-      color: var(--primary);
-    }
-
-    [data-theme="dark"] .intro-card h2,
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) .intro-card h2 {
-        color: var(--secondary-light);
-      }
-    }
-
-    .intro-card p {
-      color: var(--text-muted);
-      font-size: 15px;
-      line-height: 1.65;
+      margin-bottom: 32px;
     }
 
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: 16px;
     }
 
     .stat {
@@ -1006,9 +971,6 @@
        RESPONSIVE BREAKPOINTS
        ========================================================================== */
     @media (max-width: 960px) {
-      .intro {
-        grid-template-columns: 1fr;
-      }
       .panel-grid {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -1066,26 +1028,14 @@
     </div>
 
     <h1>История и культура народов КБР</h1>
-    <p>Интерактивный академический архив учебных материалов, конспектов и фотосхем лекционной доски по истории Кабардино-Балкарии.</p>
-
-    <div class="hero-meta">
-      <span class="pill pill-accent">🏛️ 3 учебные темы</span>
-      <span class="pill">📸 6 фотокопий с доски</span>
-      <span class="pill">🔍 Интерактивный зум</span>
-      <span class="pill">📱 Оптимизировано для телефонов</span>
-    </div>
   </header>
 
   <!-- MAIN WRAPPER -->
   <main class="wrap">
 
-    <!-- INTRO & KEY STATS -->
-    <section class="intro" aria-label="О проекте">
-      <div class="intro-card">
-        <h2>Оцифрованный лекционный архив</h2>
-        <p>Материалы систематизируют ключевые этапы древней и средневековой истории Кавказа: от археологических культур бронзового века до сложного процесса этногенеза карачаево-балкарского народа и интеграции Кабарды и Балкарии в геополитическое пространство XVI–XIX веков.</p>
-      </div>
-      <div class="stats" aria-label="Статистика архива">
+    <!-- KEY STATS -->
+    <section class="intro" aria-label="Статистика архива">
+      <div class="stats">
         <div class="stat">
           <strong>3</strong>
           <span>Ключевые темы</span>
@@ -1197,10 +1147,6 @@
             <li>Курганы и дольмены дают сведения о погребальных обычаях и социальной организации.</li>
             <li>Металлургия и обмен способствовали развитию хозяйства и контактов между регионами.</li>
           </ul>
-
-          <div class="note">
-            <b>Примечание к конспекту:</b> даты и формулировки на доске следует сверять с принятой археологической периодизацией: датировки культур могут различаться в научной литературе.
-          </div>
         </article>
 
         <!-- Gallery for Topic 1 -->
@@ -1261,10 +1207,6 @@
 
           <h4>Изменения в первой трети XIX века</h4>
           <p>Продвижение Российской империи на Кавказ сопровождалось укреплением военного и административного присутствия, изменением дипломатических отношений и постепенным включением территорий в имперскую систему управления. Эти процессы были неодинаковыми для разных обществ и сопровождались конфликтами и переговорами.</p>
-
-          <div class="note">
-            <b>Для дальнейшего уточнения:</b> конкретные даты, названия сословий и схемы с доски необходимо сопоставить с лекционным текстом и академическими публикациями. Исторические отношения региона были неоднородными.
-          </div>
         </article>
 
         <!-- Gallery for Topic 3 -->
