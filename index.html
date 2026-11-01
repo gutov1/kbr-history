@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Электронный учебный архив по истории и культуре народов Кабардино-Балкарии. Конспекты лекций, археологические памятники и фотосхемы с доски.">
+  <title>История и культура народов КБР · Электронный архив</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS VARIABLES & THEMES
+       ========================================================================== */
+    :root {
+      /* Palette */
+      --primary: #183b35;
+      --primary-dark: #0f2622;
+      --primary-light: #24574f;
+      --secondary: #c49a58;
+      --secondary-light: #e6c68e;
+      --secondary-dark: #987236;
+      
+      /* Light Theme (Default) */
+      --bg-page: #f6f3eb;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #ffffff;
+      --bg-surface-subtle: #ede7da;
+      --bg-card-header: #f0e9dc;
+      --border-subtle: #e2dbcd;
+      --border-medium: #cfc5b2;
+      
+      --text-main: #1f2723;
+      --text-muted: #57655e;
+      --text-faint: #7f9087;
+      --text-on-primary: #fffdf7;
+      --text-accent: #8b6734;
+
+      --card-shadow: 0 10px 30px rgba(24, 59, 53, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04);
+      --card-shadow-hover: 0 16px 36px rgba(24, 59, 53, 0.12), 0 4px 10px rgba(0, 0, 0, 0.06);
+
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-heading: 'Lora', Georgia, 'Times New Roman', serif;
+      --font-eyebrow: 'Cinzel', serif;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      --transition-fast: 0.18s ease;
+      --transition-normal: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --bg-page: #101614;
+      --bg-surface: #17201d;
+      --bg-surface-elevated: #1f2a26;
+      --bg-surface-subtle: #24322d;
+      --bg-card-header: #222f2a;
+      --border-subtle: #2d3e37;
+      --border-medium: #3c5249;
+
+      --text-main: #f0f4f1;
+      --text-muted: #aab8b0;
+      --text-faint: #7c8e85;
+      --text-on-primary: #ffffff;
+      --text-accent: #e5be7a;
+
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --card-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg-page: #101614;
+        --bg-surface: #17201d;
+        --bg-surface-elevated: #1f2a26;
+        --bg-surface-subtle: #24322d;
+        --bg-card-header: #222f2a;
+        --border-subtle: #2d3e37;
+        --border-medium: #3c5249;
+
+        --text-main: #f0f4f1;
+        --text-muted: #aab8b0;
+        --text-faint: #7c8e85;
+        --text-on-primary: #ffffff;
+        --text-accent: #e5be7a;
+
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        --card-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    /* ==========================================================================
+       BASE & RESET
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ==========================================================================
+       HERO HEADER
+       ========================================================================== */
+    .hero {
+      background: linear-gradient(145deg, var(--primary-dark) 0%, var(--primary) 70%, #1e4b43 100%);
+      color: var(--text-on-primary);
+      position: relative;
+      overflow: hidden;
+      padding: clamp(40px, 7vw, 84px) max(20px, calc((100vw - 1140px)/2));
+      border-bottom: 3px solid var(--secondary);
+    }
+
+    /* Subtle geometric traditional motif */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(196, 154, 88, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(196, 154, 88, 0.08) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '◇';
+      position: absolute;
+      right: clamp(10px, 6vw, 60px);
+      top: -40px;
+      font-size: clamp(180px, 24vw, 320px);
+      color: var(--secondary);
+      opacity: 0.12;
+      pointer-events: none;
+      line-height: 1;
+      font-family: serif;
+    }
+
+    .hero-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      font-family: var(--font-eyebrow);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--secondary-light);
+      font-size: clamp(11px, 2vw, 13px);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 2px;
+      background-color: var(--secondary);
+    }
+
+    /* Theme Switcher Button */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: var(--text-on-primary);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 7px 15px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 5.5vw, 56px);
+      font-weight: 600;
+      line-height: 1.15;
+      max-width: 840px;
+      margin: 12px 0 16px;
+      letter-spacing: -0.01em;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero p {
+      font-size: clamp(15px, 2.2vw, 18px);
+      color: #e4ebe6;
+      max-width: 720px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      color: #f7faf8;
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-accent {
+      background: rgba(196, 154, 88, 0.2);
+      border-color: rgba(230, 198, 142, 0.4);
+      color: var(--secondary-light);
+    }
+
+    /* ==========================================================================
+       CONTAINER WRAPPER
+       ========================================================================== */
+    .wrap {
+      max-width: 1140px;
+      width: 100%;
+      margin: 0 auto;
+      padding: clamp(28px, 4vw, 48px) 20px 80px;
+      flex: 1;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(24px, 3.5vw, 32px);
+      color: var(--text-main);
+      margin: 36px 0 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 12px;
+    }
+
+    .section-title span.sub {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       INTRO & STATS SECTION
+       ========================================================================== */
+    .intro {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 20px;
+      align-items: stretch;
+      margin-bottom: 36px;
+    }
+
+    .intro-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: clamp(20px, 3vw, 30px);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .intro-card h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(20px, 2.5vw, 25px);
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    [data-theme="dark"] .intro-card h2,
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .intro-card h2 {
+        color: var(--secondary-light);
+      }
+    }
+
+    .intro-card p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 18px 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat strong {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 3vw, 32px);
+      color: var(--secondary-light);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      font-size: 11px;
+      color: #e2ede7;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.3;
+    }
+
+    /* ==========================================================================
+       TOPIC CARDS (OVERVIEW)
+       ========================================================================== */
+    .topics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin: 20px 0 44px;
+    }
+
+    .topic-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--card-shadow);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .topic-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: var(--secondary);
+    }
+
+    .topic-head {
+      padding: 24px 22px 18px;
+      background: var(--bg-card-header);
+      border-bottom: 1px solid var(--border-subtle);
+      min-height: 170px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .num {
+      color: var(--text-accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .topic-head h3 {
+      font-family: var(--font-heading);
+      font-size: clamp(18px, 1.8vw, 21px);
+      line-height: 1.3;
+      margin: 0 0 8px;
+      color: var(--text-main);
+    }
+
+    .topic-head p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: auto;
+      line-height: 1.5;
+    }
+
+    .topic-content {
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 16px;
+    }
+
+    .topic-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .btn-topic {
+      cursor: pointer;
+      border: none;
+      border-radius: var(--radius-full);
+      padding: 10px 18px;
+      background: var(--primary);
+      color: var(--text-on-primary);
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: auto;
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .btn-topic:hover {
+      background: var(--primary-light);
+      transform: translateX(3px);
+    }
+
+    /* ==========================================================================
+       TABS NAVIGATION
+       ========================================================================== */
+    .tabs-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg-page);
+      padding: 10px 0 14px;
+      margin-bottom: 24px;
+      transition: background-color var(--transition-normal);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tabs button {
+      cursor: pointer;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 10px 18px;
+      background: var(--bg-surface);
+      color: var(--text-muted);
+      font-size: 13.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tabs button:hover {
+      color: var(--text-main);
+      border-color: var(--border-medium);
+      background: var(--bg-surface-elevated);
+    }
+
+    .tabs button.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(24, 59, 53, 0.25);
+    }
+
+    /* ==========================================================================
+       LECTURE CONTENT PANELS
+       ========================================================================== */
+    .panel {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .article {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: clamp(22px, 3.5vw, 36px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .article h3 {
+      font-family: var(--font-heading);
+      font-size: clamp(22px, 3vw, 28px);
+      color: var(--text-main);
+      margin: 0 0 16px;
+      line-height: 1.3;
+    }
+
+    .article h4 {
+      font-family: var(--font-heading);
+      font-size: 19px;
+      margin: 28px 0 10px;
+      color: var(--text-accent);
+      border-left: 3px solid var(--secondary);
+      padding-left: 10px;
+    }
+
+    .article p {
+      margin: 10px 0;
+      color: var(--text-muted);
+      font-size: 15.5px;
+      line-height: 1.7;
+    }
+
+    .article ul {
+      padding-left: 22px;
+      margin: 14px 0;
+      color: var(--text-muted);
+    }
+
+    .article li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .note {
+      background: var(--bg-surface-subtle);
+      border-left: 4px solid var(--secondary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 16px 20px;
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .note b {
+      color: var(--text-accent);
+    }
+
+    /* ==========================================================================
+       PHOTO GALLERY & THUMBNAILS
+       ========================================================================== */
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .gallery-heading {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: -4px;
+    }
+
+    .photo-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: var(--secondary);
+    }
+
+    .photo-card-media {
+      position: relative;
+      overflow: hidden;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.02);
+    }
+
+    .photo-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 38, 34, 0.45);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      gap: 8px;
+    }
+
+    .photo-card:hover .photo-card-overlay,
+    .photo-card:focus-visible .photo-card-overlay {
+      opacity: 1;
+    }
+
+    .zoom-badge {
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .photo-caption {
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .photo-caption strong {
+      color: var(--text-main);
+      font-size: 12.5px;
+    }
+
+    .photo-caption .view-link {
+      color: var(--secondary-dark);
+      font-weight: 600;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    [data-theme="dark"] .photo-caption .view-link {
+      color: var(--secondary-light);
+    }
+
+    /* ==========================================================================
+       SOURCES & REFERENCES SECTION
+       ========================================================================== */
+    .sources {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .source {
+      background: var(--bg-surface);
+      padding: 20px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .source strong {
+      font-size: 15px;
+      color: var(--text-main);
+      font-family: var(--font-heading);
+    }
+
+    .source small {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .footer {
+      background: var(--primary-dark);
+      color: #ffffff;
+      padding: 36px 20px;
+      margin-top: auto;
+      border-top: 3px solid var(--secondary);
+    }
+
+    .footer-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+
+    .footer p {
+      font-size: 14px;
+      color: #d1ded7;
+      margin: 0;
+    }
+
+    .footer span {
+      color: var(--secondary-light);
+      font-weight: 600;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .footer-links button {
+      color: var(--secondary-light);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    /* Back to top floating button */
+    .btn-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      border: 1px solid var(--secondary);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all var(--transition-fast);
+      z-index: 90;
+    }
+
+    .btn-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .btn-top:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       FULLSCREEN LIGHTBOX MODAL (FOR STUDYING BOARD NOTES)
+       ========================================================================== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 13, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      animation: fadeIn 0.2s ease forwards;
+      user-select: none;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-header {
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 10;
+    }
+
+    .lightbox-title-box {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+      padding-right: 12px;
+    }
+
+    .lightbox-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .lightbox-subtitle {
+      font-size: 12px;
+      color: var(--secondary-light);
+    }
+
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lightbox-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .lightbox-btn-close {
+      background: rgba(220, 53, 69, 0.8);
+      border-color: rgba(220, 53, 69, 0.9);
+      font-weight: bold;
+    }
+
+    .lightbox-btn-close:hover {
+      background: #dc3545;
+    }
+
+    .lightbox-body {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      touch-action: none;
+    }
+
+    .lightbox-img-wrapper {
+      position: relative;
+      max-width: 95vw;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease-out;
+      cursor: grab;
+    }
+
+    .lightbox-img-wrapper.grabbing {
+      cursor: grabbing;
+      transition: none;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(20, 30, 26, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      z-index: 10;
+    }
+
+    .lightbox-nav-btn:hover {
+      background: var(--primary);
+      border-color: var(--secondary);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .lightbox-prev {
+      left: 20px;
+    }
+
+    .lightbox-next {
+      right: 20px;
+    }
+
+    .lightbox-footer {
+      padding: 12px 24px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lightbox-counter {
+      font-weight: 600;
+      color: var(--secondary-light);
+    }
+
+    .lightbox-tip {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 960px) {
+      .intro {
+        grid-template-columns: 1fr;
+      }
+      .panel-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .topics {
+        grid-template-columns: 1fr;
+      }
+      .topic-head {
+        min-height: unset;
+      }
+      .sources {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .stat {
+        padding: 12px 6px;
+      }
+      .stat strong {
+        font-size: 20px;
+      }
+      .stat span {
+        font-size: 9.5px;
+      }
+      .lightbox-header {
+        padding: 12px 14px;
+      }
+      .lightbox-nav-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+      }
+      .lightbox-prev { left: 8px; }
+      .lightbox-next { right: 8px; }
+      .lightbox-tip { display: none; }
+      .hero-topbar {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO HEADER -->
+  <header class="hero">
+    <div class="hero-topbar">
+      <div class="eyebrow">Электронный учебный архив · КБР</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему оформления">
+        <span id="themeIcon">🌙</span>
+        <span id="themeText">Тёмная тема</span>
+      </button>
+    </div>
+
+    <h1>История и культура народов КБР</h1>
+    <p>Интерактивный академический архив учебных материалов, конспектов и фотосхем лекционной доски по истории Кабардино-Балкарии.</p>
+
+    <div class="hero-meta">
+      <span class="pill pill-accent">🏛️ 3 учебные темы</span>
+      <span class="pill">📸 6 фотокопий с доски</span>
+      <span class="pill">🔍 Интерактивный зум</span>
+      <span class="pill">📱 Оптимизировано для телефонов</span>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="wrap">
+
+    <!-- INTRO & KEY STATS -->
+    <section class="intro" aria-label="О проекте">
+      <div class="intro-card">
+        <h2>Оцифрованный лекционный архив</h2>
+        <p>Материалы систематизируют ключевые этапы древней и средневековой истории Кавказа: от археологических культур бронзового века до сложного процесса этногенеза карачаево-балкарского народа и интеграции Кабарды и Балкарии в геополитическое пространство XVI–XIX веков.</p>
+      </div>
+      <div class="stats" aria-label="Статистика архива">
+        <div class="stat">
+          <strong>3</strong>
+          <span>Ключевые темы</span>
+        </div>
+        <div class="stat">
+          <strong>6</strong>
+          <span>Фотосхем доски</span>
+        </div>
+        <div class="stat">
+          <strong>XVI–XIX</strong>
+          <span>Охват веков</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: TOPIC CARDS -->
+    <h2 class="section-title">
+      Разделы архива
+      <span class="sub">Выберите тему для перехода к лекции</span>
+    </h2>
+
+    <section class="topics" aria-label="Список тем">
+      <!-- Card 1 -->
+      <article class="topic-card">
+        <div class="topic-head">
+          <div class="num">ТЕМА 01</div>
+          <h3>Бронзовый век на Центральном и Северо-Западном Кавказе</h3>
+          <p>Археологические культуры и памятники</p>
+        </div>
+        <div class="topic-content">
+          <p>Майкопская культура, дольмены, Северокавказская культура и периодизация древней истории.</p>
+          <button class="btn-topic" onclick="showTab('t1', true)">
+            Изучить тему <span>→</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="topic-card">
+        <div class="topic-head">
+          <div class="num">ТЕМА 02</div>
+          <h3>Происхождение балкарцев и карачаевцев</h3>
+          <p>Этногенез, язык и культурные компоненты</p>
+        </div>
+        <div class="topic-content">
+          <p>Кавказский субстрат, аланский и тюркский компоненты, данные археологии и антропологии.</p>
+          <button class="btn-topic" onclick="showTab('t2', true)">
+            Изучить тему <span>→</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="topic-card">
+        <div class="topic-head">
+          <div class="num">ТЕМА 03</div>
+          <h3>Кабарда и Балкария в политике России</h3>
+          <p>XVI — первая треть XIX века</p>
+        </div>
+        <div class="topic-content">
+          <p>Политические связи, общественное устройство, сословия и геополитическое положение региона.</p>
+          <button class="btn-topic" onclick="showTab('t3', true)">
+            Изучить тему <span>→</span>
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <!-- SECTION 2: TABS & LECTURE MATERIALS -->
+    <h2 class="section-title" id="lecture-section">
+      Материалы лекций
+      <span class="sub">Конспекты и фотодокументы</span>
+    </h2>
+
+    <!-- Sticky Tabs Bar -->
+    <div class="tabs-wrapper">
+      <nav class="tabs" role="tablist" aria-label="Вкладки лекций">
+        <button class="active" data-tab="t1" role="tab" aria-selected="true" onclick="showTab('t1')">
+          01 · Бронзовый век
+        </button>
+        <button data-tab="t2" role="tab" aria-selected="false" onclick="showTab('t2')">
+          02 · Этногенез балкарцев и карачаевцев
+        </button>
+        <button data-tab="t3" role="tab" aria-selected="false" onclick="showTab('t3')">
+          03 · Кабарда и Балкария (XVI–XIX вв.)
+        </button>
+      </nav>
+    </div>
+
+    <!-- PANEL 1: БРОНЗОВЫЙ ВЕК -->
+    <section id="t1" class="panel active" role="tabpanel">
+      <div class="panel-grid">
+        <article class="article">
+          <h3>Бронзовый век на Центральном и Северо-Западном Кавказе</h3>
+          <p>Эпоха бронзы стала важным этапом древней истории Кавказа. В это время развивались металлургия, скотоводство и земледелие, усложнялись общественные связи, возникали яркие археологические культуры. О жизни древнего населения исследователи узнают по поселениям, погребениям, орудиям труда, украшениям и керамике.</p>
+
+          <h4>Майкопская культура</h4>
+          <p>Майкопская археологическая культура относится к раннему бронзовому веку и известна прежде всего по памятникам Северо-Западного Кавказа. Её отличают богатые погребальные комплексы, изделия из металла, керамика и свидетельства развитых обменных связей. Название связано с Майкопским курганом, исследованным в конце XIX века.</p>
+
+          <h4>Дольмены</h4>
+          <p>Дольмены — мегалитические погребальные сооружения, сложенные из крупных каменных плит. На Западном Кавказе они образуют заметную группу памятников. Их назначение и особенности строительства изучаются археологами; они свидетельствуют о сложных обрядах и коллективных формах труда древних обществ.</p>
+
+          <h4>Северокавказская культура</h4>
+          <p>Под этим названием объединяют археологические памятники эпохи бронзы Центрального и Северного Кавказа. Для их изучения важны погребальные обряды, керамика, металлические предметы и региональные различия.</p>
+
+          <h4>Что важно запомнить</h4>
+          <ul>
+            <li>Археологическая культура — совокупность сходных памятников и вещей определённого времени и территории.</li>
+            <li>Курганы и дольмены дают сведения о погребальных обычаях и социальной организации.</li>
+            <li>Металлургия и обмен способствовали развитию хозяйства и контактов между регионами.</li>
+          </ul>
+
+          <div class="note">
+            <b>Примечание к конспекту:</b> даты и формулировки на доске следует сверять с принятой археологической периодизацией: датировки культур могут различаться в научной литературе.
+          </div>
+        </article>
+
+        <!-- Gallery for Topic 1 -->
+        <aside class="gallery" id="gallery1">
+          <div class="gallery-heading">📸 Фотодокументы с доски (2)</div>
+          <!-- Populated by JS -->
+        </aside>
+      </div>
+    </section>
+
+    <!-- PANEL 2: ЭТНОГЕНЕЗ -->
+    <section id="t2" class="panel" role="tabpanel">
+      <div class="panel-grid">
+        <article class="article">
+          <h3>Происхождение балкарцев и карачаевцев</h3>
+          <p>Происхождение балкарцев и карачаевцев рассматривается историками, археологами, этнографами и лингвистами как длительный процесс формирования народов Центрального Кавказа. В научных объяснениях учитываются местная кавказская основа, исторические контакты с аланским населением и тюркоязычными группами, а также процессы средневековой этнической консолидации.</p>
+
+          <h4>Кавказский этнический субстрат</h4>
+          <p>Под субстратом понимают более раннее местное население и культурные традиции, которые сохраняют влияние при формировании нового этноса. Для Центрального Кавказа важны археологические и исторические свидетельства длительного проживания разных групп в горных и предгорных районах.</p>
+
+          <h4>Аланский компонент</h4>
+          <p>Аланы — ираноязычные кочевые и оседлые группы, игравшие заметную роль в истории Северного Кавказа в античности и Средневековье. Аланское наследие рассматривается как один из компонентов этногенеза карачаевцев и балкарцев, в том числе в связи с историей средневековой Алании.</p>
+
+          <h4>Тюркский компонент и язык</h4>
+          <p>Карачаево-балкарский язык относится к тюркской языковой семье, к кыпчакской группе. Тюркские языковые и культурные элементы формировались в результате исторических миграций, контактов и взаимодействий. Язык является важным источником, но сам по себе не объясняет всё происхождение народа.</p>
+
+          <h4>Археология и антропология</h4>
+          <p>Нальчикский могильник и другие археологические памятники помогают изучать население региона в разные эпохи. Антропологические данные сопоставляют с археологическими, письменными и лингвистическими источниками. Ни один отдельный тип находок не даёт полного ответа об этногенезе.</p>
+
+          <div class="note">
+            <b>Главная мысль:</b> происхождение народов — сложный многоэтапный процесс. Разные гипотезы сопоставляются по совокупности источников, а не сводятся к одному предку или одной миграции.
+          </div>
+        </article>
+
+        <!-- Gallery for Topic 2 -->
+        <aside class="gallery" id="gallery2">
+          <div class="gallery-heading">📸 Фотодокументы с доски (1)</div>
+          <!-- Populated by JS -->
+        </aside>
+      </div>
+    </section>
+
+    <!-- PANEL 3: КАБАРДА И БАЛКАРИЯ (XVI-XIX ВВ.) -->
+    <section id="t3" class="panel" role="tabpanel">
+      <div class="panel-grid">
+        <article class="article">
+          <h3>Кабарда и Балкария в системе кавказской политики России и международных отношений (XVI — первая треть XIX века)</h3>
+          <p>В XVI — первой трети XIX века Северный Кавказ находился на пересечении интересов местных политических объединений, Османской империи, Крымского ханства, Персии и Русского государства. Кабарда занимала важное положение на путях между Северным Кавказом и Закавказьем. Балкарские общества жили в горных ущельях и поддерживали разнообразные связи с соседями.</p>
+
+          <h4>Кабарда и внешнеполитические связи</h4>
+          <p>Кабардинские княжеские и узденские группы участвовали в дипломатических контактах и военных союзах. В 1557 году в историографии отмечается обращение части кабардинской знати к Москве за поддержкой и сближением. Эту дату важно рассматривать в контексте сложных и менявшихся отношений, а не как одномоментное и одинаковое для всего региона событие.</p>
+
+          <h4>Общественное устройство</h4>
+          <p>В Кабарде существовала сословная иерархия. В общественной жизни выделялись князья (пши), представители знати и служилых сословий, а также зависимые категории населения. Положение и названия социальных групп менялись в разные периоды и могли различаться по местности.</p>
+
+          <h4>Балкарские общества</h4>
+          <p>Балкарское население было организовано в территориальные общества, связанные с горными ущельями и селениями. Большую роль играли родственные связи, общинные нормы, традиционные институты самоуправления, землепользование и хозяйственное взаимодействие.</p>
+
+          <h4>Изменения в первой трети XIX века</h4>
+          <p>Продвижение Российской империи на Кавказ сопровождалось укреплением военного и административного присутствия, изменением дипломатических отношений и постепенным включением территорий в имперскую систему управления. Эти процессы были неодинаковыми для разных обществ и сопровождались конфликтами и переговорами.</p>
+
+          <div class="note">
+            <b>Для дальнейшего уточнения:</b> конкретные даты, названия сословий и схемы с доски необходимо сопоставить с лекционным текстом и академическими публикациями. Исторические отношения региона были неоднородными.
+          </div>
+        </article>
+
+        <!-- Gallery for Topic 3 -->
+        <aside class="gallery" id="gallery3">
+          <div class="gallery-heading">📸 Фотодокументы с доски (3)</div>
+          <!-- Populated by JS -->
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 3: SOURCES & HISTORIOGRAPHY -->
+    <h2 class="section-title">
+      Источники и историография
+      <span class="sub">Рекомендуемая научная база</span>
+    </h2>
+
+    <section class="sources" aria-label="Научные источники">
+      <div class="source">
+        <strong>Археологические исследования Кавказа</strong>
+        <small>Публикации институтов археологии РАН по Майкопской и Северокавказской культурам, мегалитам и Нальчикскому могильнику.</small>
+      </div>
+      <div class="source">
+        <strong>Труды по этногенезу карачаевцев и балкарцев</strong>
+        <small>Исследования кавказского субстрата, аланского наследия, кыпчакско-тюркских компонентов и средневековой Алании.</small>
+      </div>
+      <div class="source">
+        <strong>Документы русско-кавказских отношений</strong>
+        <small>Архивные материалы XVI–XIX веков, дипломатическая переписка посольств 1557 года и акты кавказской археографической комиссии.</small>
+      </div>
+      <div class="source">
+        <strong>Учебно-методический комплекс КБР</strong>
+        <small>Лекционный курс по истории и традиционной культуре народов Кабардино-Балкарской Республики.</small>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>Исторический учебный архив · <span>Кабардино-Балкария</span></p>
+      <div class="footer-links">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Вернуться к началу ↑</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING BACK TO TOP BUTTON -->
+  <button class="btn-top" id="btnTop" title="Наверх" aria-label="Наверх">↑</button>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии доски">
+    <div class="lightbox-header">
+      <div class="lightbox-title-box">
+        <div class="lightbox-title" id="lightboxTitle">Заголовок фото</div>
+        <div class="lightbox-subtitle" id="lightboxSubtitle">Кабардино-Балкария · Конспект</div>
+      </div>
+      <div class="lightbox-controls">
+        <button class="lightbox-btn" id="lightboxZoomOut" title="Уменьшить (-)" aria-label="Уменьшить">-</button>
+        <button class="lightbox-btn" id="lightboxZoomReset" title="Сбросить масштаб (1:1)" aria-label="1 к 1">1:1</button>
+        <button class="lightbox-btn" id="lightboxZoomIn" title="Увеличить (+)" aria-label="Увеличить">+</button>
+        <button class="lightbox-btn lightbox-btn-close" id="lightboxClose" title="Закрыть (Esc)" aria-label="Закрыть">✕</button>
+      </div>
+    </div>
+
+    <div class="lightbox-body" id="lightboxBody">
+      <button class="lightbox-nav-btn lightbox-prev" id="lightboxPrev" title="Предыдущее фото (Стрелка влево)" aria-label="Предыдущее">❮</button>
+      
+      <div class="lightbox-img-wrapper" id="lightboxWrapper">
+        <img class="lightbox-img" id="lightboxImg" src="" alt="Конспект">
+      </div>
+
+      <button class="lightbox-nav-btn lightbox-next" id="lightboxNext" title="Следующее фото (Стрелка вправо)" aria-label="Следующее">❯</button>
+    </div>
+
+    <div class="lightbox-footer">
+      <div class="lightbox-counter" id="lightboxCounter">Фото 1 из 6</div>
+      <div class="lightbox-tip">💡 Подсказка: колесико мыши или жесты масштабируют фото, Esc закрывает</div>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    /* ==========================================================================
+       DATA: IMAGES
+       ========================================================================== */
+    const images = [
+      {
+        src: "img/board_1.jpg",
+        caption: "Тема 1 · общая схема",
+        alt: "Бронзовый век на Центральном и Северо-Западном Кавказе",
+        topic: "t1"
+      },
+      {
+        src: "img/board_2.jpg",
+        caption: "Тема 1 · рисунки и периодизация",
+        alt: "Иллюстрации и археологические периоды",
+        topic: "t1"
+      },
+      {
+        src: "img/board_3.jpg",
+        caption: "Тема 2 · происхождение народов",
+        alt: "Происхождение балкарцев и карачаевцев",
+        topic: "t2"
+      },
+      {
+        src: "img/board_4.jpg",
+        caption: "Тема 3 · исторический контекст",
+        alt: "Кабарда и Балкария в XVI–XIX веках",
+        topic: "t3"
+      },
+      {
+        src: "img/board_5.jpg",
+        caption: "Тема 3 · общественное устройство",
+        alt: "Сословия и социальные отношения",
+        topic: "t3"
+      },
+      {
+        src: "img/board_6.jpg",
+        caption: "Тема 3 · Балкария",
+        alt: "Общественная жизнь и традиционные институты",
+        topic: "t3"
+      }
+    ];
+
+    /* ==========================================================================
+       POPULATE GALLERIES
+       ========================================================================== */
+    function renderGallery(targetId, items, startIndex) {
+      const container = document.getElementById(targetId);
+      if (!container) return;
+
+      items.forEach((item, idx) => {
+        const globalIndex = startIndex + idx;
+        const card = document.createElement('div');
+        card.className = 'photo-card';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `Увеличить: ${item.caption}`);
+
+        card.innerHTML = `
+          <div class="photo-card-media">
+            <img src="${item.src}" alt="${item.alt}" loading="lazy">
+            <div class="photo-card-overlay">
+              <span class="zoom-badge">🔍 Увеличить конспект</span>
+            </div>
+          </div>
+          <div class="photo-caption">
+            <strong>${item.caption}</strong>
+            <span class="view-link">Открыть ↗</span>
+          </div>
+        `;
+
+        card.addEventListener('click', () => openLightbox(globalIndex));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox(globalIndex);
+          }
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    renderGallery('gallery1', images.slice(0, 2), 0);
+    renderGallery('gallery2', images.slice(2, 3), 2);
+    renderGallery('gallery3', images.slice(3, 6), 3);
+
+    /* ==========================================================================
+       TAB SWITCHING & SMOOTH SCROLLING
+       ========================================================================== */
+    function showTab(id, shouldScroll = false) {
+      // Toggle panels
+      document.querySelectorAll('.panel').forEach(p => {
+        p.classList.toggle('active', p.id === id);
+      });
+
+      // Toggle tab buttons
+      document.querySelectorAll('.tabs button').forEach(b => {
+        const isActive = b.dataset.tab === id;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      // Smooth scroll if triggered from topic cards or navigation
+      if (shouldScroll) {
+        const target = document.getElementById('lecture-section');
+        if (target) {
+          const yOffset = -70;
+          const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+
+      // Update URL hash without jumping
+      if (history.replaceState) {
+        history.replaceState(null, null, '#' + id);
+      }
+    }
+
+    // Handle initial hash in URL (e.g. index.html#t2)
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && ['t1', 't2', 't3'].includes(hash)) {
+        showTab(hash, false);
+      }
+    });
+
+    /* ==========================================================================
+       LIGHT / DARK THEME TOGGLE
+       ========================================================================== */
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    function getPreferredTheme() {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Светлая тема';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Тёмная тема';
+      }
+    }
+
+    applyTheme(getPreferredTheme());
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || getPreferredTheme();
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+
+    /* ==========================================================================
+       LIGHTBOX (MODAL VIEWER FOR BOARD PHOTOS)
+       ========================================================================== */
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxWrapper = document.getElementById('lightboxWrapper');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxSubtitle = document.getElementById('lightboxSubtitle');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+    const lightboxZoomIn = document.getElementById('lightboxZoomIn');
+    const lightboxZoomOut = document.getElementById('lightboxZoomOut');
+    const lightboxZoomReset = document.getElementById('lightboxZoomReset');
+
+    let currentImgIdx = 0;
+    let currentScale = 1;
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let translateX = 0, translateY = 0;
+
+    function updateLightboxTransform() {
+      lightboxWrapper.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+    }
+
+    function resetZoom() {
+      currentScale = 1;
+      translateX = 0;
+      translateY = 0;
+      updateLightboxTransform();
+    }
+
+    function openLightbox(index) {
+      currentImgIdx = index;
+      const data = images[currentImgIdx];
+      if (!data) return;
+
+      lightboxImg.src = data.src;
+      lightboxTitle.textContent = data.caption;
+      lightboxSubtitle.textContent = data.alt;
+      lightboxCounter.textContent = `Фото ${currentImgIdx + 1} из ${images.length}`;
+
+      resetZoom();
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      resetZoom();
+    }
+
+    function nextImage() {
+      currentImgIdx = (currentImgIdx + 1) % images.length;
+      openLightbox(currentImgIdx);
+    }
+
+    function prevImage() {
+      currentImgIdx = (currentImgIdx - 1 + images.length) % images.length;
+      openLightbox(currentImgIdx);
+    }
+
+    // Zoom controls
+    lightboxZoomIn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentScale = Math.min(currentScale + 0.35, 4);
+      updateLightboxTransform();
+    });
+
+    lightboxZoomOut.addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentScale = Math.max(currentScale - 0.35, 0.7);
+      updateLightboxTransform();
+    });
+
+    lightboxZoomReset.addEventListener('click', (e) => {
+      e.stopPropagation();
+      resetZoom();
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+    lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+
+    // Close when clicking outside image wrapper
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target === document.getElementById('lightboxBody')) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === '+' || e.key === '=') {
+        currentScale = Math.min(currentScale + 0.35, 4);
+        updateLightboxTransform();
+      }
+      if (e.key === '-') {
+        currentScale = Math.max(currentScale - 0.35, 0.7);
+        updateLightboxTransform();
+      }
+      if (e.key === '0') resetZoom();
+    });
+
+    // Mouse wheel zoom
+    lightboxWrapper.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY * -0.0015;
+      currentScale = Math.min(Math.max(0.7, currentScale + delta), 4);
+      updateLightboxTransform();
+    }, { passive: false });
+
+    // Drag / Pan image when zoomed
+    lightboxWrapper.addEventListener('mousedown', (e) => {
+      if (currentScale <= 1) return;
+      isDragging = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+      lightboxWrapper.classList.add('grabbing');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      translateX = e.clientX - startX;
+      translateY = e.clientY - startY;
+      updateLightboxTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+      lightboxWrapper.classList.remove('grabbing');
+    });
+
+    // Touch Swipe for mobile devices
+    let touchStartX = 0;
+    let touchStartY = 0;
+    lightboxWrapper.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    lightboxWrapper.addEventListener('touchend', (e) => {
+      if (currentScale > 1.2) return; // don't flip if user is zoomed in
+      if (e.changedTouches.length === 1) {
+        const diffX = e.changedTouches[0].clientX - touchStartX;
+        const diffY = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(diffX) > 50 && Math.abs(diffY) < 60) {
+          if (diffX < 0) nextImage();
+          else prevImage();
+        }
+      }
+    }, { passive: true });
+
+    /* ==========================================================================
+       BACK TO TOP BUTTON
+       ========================================================================== */
+    const btnTop = document.getElementById('btnTop');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 350) {
+        btnTop.classList.add('visible');
+      } else {
+        btnTop.classList.remove('visible');
+      }
+    });
+
+    btnTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
